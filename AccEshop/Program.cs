@@ -1,5 +1,8 @@
 ﻿using System.Reflection.Metadata.Ecma335;
 using AccEshop.Models;
+using AccEshop.Services;
+
+// instance, reference, object, variable
 
 var product = new Product()
 {
@@ -8,15 +11,6 @@ var product = new Product()
  ProductionTimeStamp = DateTime.Now,
  Description = "Fresh snack"
 };
- 
-Console.WriteLine(
-    $"""
-        the product id is {product.Id} 
-        the product name is {product.Name} 
-        the product name is {product.Price}
-    """);
-
-// instance, reference, object, variable
 
 Customer customer = new()
 {
@@ -24,20 +18,11 @@ Customer customer = new()
       Address = "Sliman 3",
        City = "Athens",
         Country ="Greece",
-        Name = null,
+        Name = "George",
 };
 
-Order order = new()
-{
-    Id = 2,
-    Customer = customer,
-     Product = product,
-};
+OrderService orderService = new();
 
-Console.WriteLine($"""
-    Name of the customer in the current order is 
-    {order?.Customer?.Name?.Length}
-    price is {order?.Product.Price}
-  """);
-
- //{order.Customer!=null?order.Customer.Name: null}
+Order order = orderService.CreateOrder(customer, product);
+string message = orderService.GetOrderDetails();
+Console.WriteLine(message);
