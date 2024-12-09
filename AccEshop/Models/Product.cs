@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace AccEshop.Models;
 
 public class Product
-{ 
-    public decimal Price { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; } 
-    public string ProductId { get; set; } = Guid.NewGuid().ToString();
-    public DateTime ProductionTimeStamp { get; set; }
+{
+    public string Id { get; set; } = Guid.NewGuid().ToString();  
+    public string Name { get; set; } = string.Empty;    
+    public decimal Price { get; set; }  
+    public string? Description { get; set; } 
+    public DateTime ProductionTimeStamp { get; set; }  
 }
