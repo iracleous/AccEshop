@@ -9,7 +9,8 @@ using AccEshop.Models;
 namespace AccEshop.Repositories;
 
 
-public class Repository<T, K>: IRepository<T, K> where T : IEntity<K> where K :class
+public class Repository<T, K>: IRepository<T, K> 
+    where T : IEntity<K> where K :class
 {
     private List<T> _ts = [];
     public T Create(T t)

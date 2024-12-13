@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AccEshop.Services;
  
 
-public interface IProductService<Trequest, Tresponse, K>
+public interface IService<Trequest, Tresponse, K>
 {
     Tresponse Create(Trequest t);
     Tresponse? Read(K id);

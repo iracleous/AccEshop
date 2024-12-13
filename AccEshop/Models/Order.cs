@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AccEshop.Models;
 
-public class Order
+public class Order : IEntity<long>
 {
     public long Id { get; set; }
     public Customer? Customer { get; set; } 

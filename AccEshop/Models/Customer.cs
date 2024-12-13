@@ -9,7 +9,7 @@ namespace AccEshop.Models;
 /// <summary>
 /// This class models a customer
 /// </summary>
-public class Customer
+public class Customer : IEntity<long>
 {
     public long Id { get; set; }
     public string Name { get; set; } = string.Empty;

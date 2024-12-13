@@ -7,61 +7,46 @@ using AccEshop.Dtos;
 using AccEshop.Models;
 using System.Xml.Linq;
 using AccEshop.Repositories;
+using AccEshop.Mappers;
 
 namespace AccEshop.Services;
 
-public class ProductService
+public class ProductService:IService<ProductRequest, ProductResponse, string>
 {
-    private readonly IRepository<Product, string> productRepository;
+    private readonly IRepository<Product, string> _productRepository;
+    private MapperUtility _mapper = new();
 
     public ProductService(IRepository<Product, string> productRepository)
     {
-        this.productRepository = productRepository;
+        _productRepository = productRepository;
     }
 
-    public ProductResponse Create(ProductRequest product)
+    public ProductResponse Create(ProductRequest productRequest)
     {
-        var productInList = new Product()
-        {
-            Id = Guid.NewGuid().ToString(),
-            Name = product.Name,
-            Price = product.Price,
-            Description = product.Description,
-            ProductionTimeStamp = DateTime.Now,
-        };
-        productRepository.Create(productInList);
-        return new ProductResponse()
-        {
-            Id = productInList.Id,
-            Name = productInList.Name,
-            Price = productInList.Price,
-            Description = productInList.Description,
-            ProductionTimeStamp = productInList.ProductionTimeStamp
-        };
-
+        var product = _mapper.GetModel(productRequest);
+        product.Id = Guid.NewGuid().ToString();
+        product.ProductionTimeStamp = DateTime.Now;
+        _productRepository.Create(product);
+        return _mapper.GetDto(product);
     }
 
     public bool Delete(string id)
     {
-       
-        return productRepository.Delete(id);
+        Product? product1 = _productRepository.Read(id);
+        if (product1?.Description != null)
+        {
+            return false;
+        }
+        return _productRepository.Delete(id);
     }
 
     public List<ProductResponse> Read()
     {
         List<ProductResponse> productResponses = [];
-        List<Product> products = productRepository.Read();
-        products.ForEach(prodx =>
+        List<Product> products = _productRepository.Read();
+        products.ForEach(product =>
         {
-            productResponses.Add(new ProductResponse
-            {
-                Id = prodx.Id,
-                Name = prodx.Name,
-                Description = prodx.Description,
-                Price = prodx.Price,
-                ProductionTimeStamp = prodx.ProductionTimeStamp,
-            }
-            );
+            productResponses.Add( _mapper.GetDto(product));
         }
         );
         return productResponses;
@@ -69,34 +54,20 @@ public class ProductService
 
     public ProductResponse? Read(string id)
     {
-        Product? prodx = productRepository.Read(id);
-        if (prodx == null) return null;
-        return new ProductResponse
-        {
-            Id = prodx.Id,
-            Name = prodx.Name,
-            Description = prodx.Description,
-            Price = prodx.Price,
-            ProductionTimeStamp = prodx.ProductionTimeStamp,
-        };
+        Product? product = _productRepository.Read(id);
+        if (product == null) return null;
+        return _mapper.GetDto(product);
     }
 
-    public ProductResponse? Update(string id, ProductRequest product)
+    public ProductResponse? Update(string id, ProductRequest productRequest)
     {
-        Product? prodx = productRepository.Read(id);
-        if (prodx == null) return null;
+        Product? product = _productRepository.Read(id);
+        if (product == null) return null;
 
-        prodx.Price = product.Price;
-        prodx.Name = product.Name;
-        prodx.Description = product.Description;
+        product.Price = productRequest.Price;
+        product.Name = productRequest.Name;
+        product.Description = productRequest.Description;
 
-        return new ProductResponse
-        {
-            Id = prodx.Id,
-            Name = prodx.Name,
-            Description = prodx.Description,
-            Price = prodx.Price,
-            ProductionTimeStamp = prodx.ProductionTimeStamp,
-        };
+        return _mapper.GetDto(product);
     }
 }
