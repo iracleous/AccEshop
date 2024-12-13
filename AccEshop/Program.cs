@@ -5,7 +5,6 @@ using AccEshop.Services;
 
 // instance, reference, object, variable
 
-
 var productRequest = new ProductRequest
 {
     Description = "",

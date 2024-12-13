@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AccEshop.Dtos;
 
 namespace AccEshop.Services;
  
 
 public interface IService<Trequest, Tresponse, K>
 {
-    Tresponse Create(Trequest t);
-    Tresponse? Read(K id);
-    List<Tresponse> Read();
-    Tresponse? Update(K id, Trequest t);
-    bool Delete(K id);
+    ResponseApi<Tresponse> Create(Trequest t);
+    ResponseApi<Tresponse> Read(K id);
+    ResponseApi<List<Tresponse>> Read();
+    ResponseApi<Tresponse> Update(K id, Trequest t);
+    ResponseApi<bool> Delete(K id);
 }

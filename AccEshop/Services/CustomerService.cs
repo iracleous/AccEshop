@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AccEshop.Models;
+﻿using AccEshop.Models;
 using AccEshop.Repositories;
 
 namespace AccEshop.Services;
 
+/// <summary>
+/// 
+/// </summary>
 public class CustomerService : IService<Customer, Customer, long>
 {
     private readonly IRepository<Customer, long> _repository;
@@ -17,6 +15,11 @@ public class CustomerService : IService<Customer, Customer, long>
         _repository = repository;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
     public Customer Create(Customer t)
     {
         return _repository.Create(t);
