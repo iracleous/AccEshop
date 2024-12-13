@@ -8,48 +8,40 @@ using AccEshop.Models;
 
 namespace AccEshop.Repositories;
 
-public class ProductRepository : IProductRepository
+
+public class Repository<T, K>: IRepository<T, K> where T : IEntity<K> where K :class
 {
-    private List<Product> products = [];
-    public ProductResponse CreateProduct(ProductRequest product)
+    private List<T> _ts = [];
+    public T Create(T t)
     {
-        var productInList  = new Product ()
-        {
-            Id = Guid.NewGuid().ToString(),
-            Name = product.Name,
-            Price = product.Price,
-            Description = product.Description,
-            ProductionTimeStamp = DateTime.Now,
-        };
-        products.Add (productInList);
-        return new ProductResponse()
-        {
-            Id = productInList.Id,
-            Name = productInList.Name,
-            Price = productInList.Price,
-            Description = productInList.Description,
-            ProductionTimeStamp = productInList.ProductionTimeStamp
-        };
-
+        _ts.Add(t);
+        return t;
     }
 
-    public bool Delete(string id)
+    public bool Delete(K id)
     {
-        throw new NotImplementedException();
+        T? t = _ts.FirstOrDefault(t => t.Id.Equals( id));
+        if (t == null) return false;
+        _ts.Remove(t);
+        return true;
     }
 
-    public List<ProductResponse> Read()
+    public List<T> Read()
     {
-        throw new NotImplementedException();
+        return _ts;
     }
 
-    public ProductResponse ReadProduct(string id)
+    public T? Read(K id)
     {
-        throw new NotImplementedException();
+        return _ts.FirstOrDefault(t => t.Id.Equals(id));
     }
 
-    public ProductResponse Update(string productId, ProductRequest product)
+    public T? Update(K id, T product)
     {
-        throw new NotImplementedException();
+        T? t = _ts.FirstOrDefault(t => t.Id == id);
+        if (t == null) return default;
+        //update
+        return t;
     }
+ 
 }

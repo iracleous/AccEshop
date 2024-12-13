@@ -31,13 +31,13 @@ Console.WriteLine(message);
 
 var productRequest = new ProductRequest
 {
-    Name = "cafes",
-    Description = "beverage",
-    Price = 1.2m
+    
 };
 
-ProductRepository productRepository = new ProductRepository();
-ProductResponse productResponse = 
-    productRepository.CreateProduct(productRequest);
+var productRepository = new Repository<Product, string>();
+var productService = new ProductService(productRepository);
+
+ProductResponse productResponse =
+    productService.Create(productRequest);
 
 Console.WriteLine(productResponse.Id);

@@ -11,8 +11,8 @@ namespace AccEshop.Repositories;
 public interface IProductRepository
 {
     ProductResponse CreateProduct(ProductRequest product);
-    ProductResponse ReadProduct(string id);
+    ProductResponse? ReadProduct(string id);
     List<ProductResponse> Read();
-    ProductResponse Update(string productId, ProductRequest product);
+    ProductResponse? Update(string productId, ProductRequest product);
     bool Delete(string id);
 }
