@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace AccEshop.Models;
 
+/// <summary>
+/// This class models a customer
+/// </summary>
 public class Customer
 {
     public long Id { get; set; }

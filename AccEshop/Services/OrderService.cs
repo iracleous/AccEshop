@@ -11,6 +11,13 @@ public class OrderService
 {
     private long _id;
     private Order? _order;
+
+    /// <summary>
+    /// no exceptions
+    /// </summary>
+    /// <param name="customer"></param>
+    /// <param name="product"></param>
+    /// <returns></returns>
     public Order CreateOrder(Customer customer, Product product)
     {
         _id++;
