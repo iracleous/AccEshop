@@ -11,5 +11,5 @@ public class Order : IEntity<long>
     public long Id { get; set; }
     public Customer? Customer { get; set; } 
     public DateTime Date { get; set; }
-    public Product? Product { get; set; }      
+    public List<Product> Products { get; set; } = [];  
 }

@@ -10,7 +10,7 @@ namespace AccEshop.Repositories;
 
 
 public class Repository<T, K>: IRepository<T, K> 
-    where T : IEntity<K> where K :class
+    where T : IEntity<K>  
 {
     private List<T> _ts = [];
     public T Create(T t)
@@ -21,7 +21,8 @@ public class Repository<T, K>: IRepository<T, K>
 
     public bool Delete(K id)
     {
-        T? t = _ts.FirstOrDefault(t => t.Id.Equals( id));
+        if (id == null) return false;
+        T? t = _ts.FirstOrDefault( t => id.Equals( t.Id ));
         if (t == null) return false;
         _ts.Remove(t);
         return true;
@@ -34,12 +35,14 @@ public class Repository<T, K>: IRepository<T, K>
 
     public T? Read(K id)
     {
-        return _ts.FirstOrDefault(t => t.Id.Equals(id));
+        if (id == null) return default;
+        return _ts.FirstOrDefault(t => id.Equals(t.Id));
     }
 
     public T? Update(K id, T product)
     {
-        T? t = _ts.FirstOrDefault(t => t.Id == id);
+        if (id == null) return default;
+        T? t = _ts.FirstOrDefault(t => id.Equals(t.Id));
         if (t == null) return default;
         //update
         return t;
