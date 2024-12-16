@@ -24,7 +24,7 @@ public class OrderService
         _order = new Order()
         {
             Customer = customer,
-            Product = product,
+            Products = [],
             Date = DateTime.Now,
             Id = _id
         };
@@ -40,8 +40,8 @@ public class OrderService
         return $"""
             order id {_order?.Id}
             customer name {_order?.Customer?.Name}
-            product name {_order?.Product?.Name}
-            price {_order?.Product?.Price}
+            product name {_order?.Products}
+            price {_order?.Products}
             """;
     }
 }

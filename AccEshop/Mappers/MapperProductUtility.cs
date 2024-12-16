@@ -8,21 +8,23 @@ using AccEshop.Models;
 
 namespace AccEshop.Mappers;
 
-public class MapperUtility
+public class MapperProductUtility : IMapperProductUtility
 {
 
-    public Product GetModel(ProductRequest productRequest)
+    public Product GetProductModel(ProductRequest productRequest)
     {
-        return new Product() {
+        return new Product()
+        {
             Name = productRequest.Name,
             Price = productRequest.Price,
             Description = productRequest.Description,
         };
     }
 
-    public ProductResponse GetDto(Product product)
+    public ProductResponse GetProductDto(Product product)
     {
-        return new ProductResponse() {
+        return new ProductResponse()
+        {
             Id = product.Id,
             Name = product.Name,
             Price = product.Price,

@@ -16,16 +16,17 @@ namespace AccEshop.Services;
 public class ProductService:IService<ProductRequest, ProductResponse, string>
 {
     private readonly IRepository<Product, string> _productRepository;
-    private MapperUtility _mapper = new();
+    private readonly IMapperProductUtility _mapper;
 
     public ProductService(IRepository<Product, string> productRepository)
     {
         _productRepository = productRepository;
+        _mapper = new MapperProductUtility();
     }
 
     public ResponseApi<ProductResponse> Create(ProductRequest productRequest)
     {
-        var product = _mapper.GetModel(productRequest);
+        var product = _mapper.GetProductModel(productRequest);
 
         if (ProductValidator.IsProductEmpty(product))
         {
@@ -43,7 +44,7 @@ public class ProductService:IService<ProductRequest, ProductResponse, string>
         return
             new ResponseApi<ProductResponse>
             {
-                 Value = _mapper.GetDto(product)
+                 Value = _mapper.GetProductDto(product)
             };
        
     }
@@ -73,7 +74,7 @@ public class ProductService:IService<ProductRequest, ProductResponse, string>
         List<Product> products = _productRepository.Read();
         products.ForEach(product =>
         {
-            productResponses.Add( _mapper.GetDto(product));
+            productResponses.Add( _mapper.GetProductDto(product));
         }
         );
 
@@ -95,7 +96,7 @@ public class ProductService:IService<ProductRequest, ProductResponse, string>
             };
 
 
-        ProductResponse productResponse = _mapper.GetDto(product);
+        ProductResponse productResponse = _mapper.GetProductDto(product);
         return
            new ResponseApi<ProductResponse>
            {
@@ -118,7 +119,7 @@ public class ProductService:IService<ProductRequest, ProductResponse, string>
         product.Name = productRequest.Name;
         product.Description = productRequest.Description;
 
-        ProductResponse productResponse = _mapper.GetDto(product);
+        ProductResponse productResponse = _mapper.GetProductDto(product);
         return
            new ResponseApi<ProductResponse>
            {

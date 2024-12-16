@@ -1,4 +1,5 @@
-﻿using AccEshop.Models;
+﻿using AccEshop.Dtos;
+using AccEshop.Models;
 using AccEshop.Repositories;
 
 namespace AccEshop.Services;
@@ -43,5 +44,30 @@ public class CustomerService : IService<Customer, Customer, long>
     public Customer? Update(long id, Customer t)
     {
         return _repository.Update(id, t);
+    }
+
+    ResponseApi<Customer> IService<Customer, Customer, long>.Create(Customer t)
+    {
+        throw new NotImplementedException();
+    }
+
+    ResponseApi<bool> IService<Customer, Customer, long>.Delete(long id)
+    {
+        throw new NotImplementedException();
+    }
+
+    ResponseApi<Customer> IService<Customer, Customer, long>.Read(long id)
+    {
+        throw new NotImplementedException();
+    }
+
+    ResponseApi<List<Customer>> IService<Customer, Customer, long>.Read()
+    {
+        throw new NotImplementedException();
+    }
+
+    ResponseApi<Customer> IService<Customer, Customer, long>.Update(long id, Customer t)
+    {
+        throw new NotImplementedException();
     }
 }

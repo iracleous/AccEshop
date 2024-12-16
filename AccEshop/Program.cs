@@ -1,4 +1,6 @@
-﻿using AccEshop.Dtos;
+﻿using System.Diagnostics;
+using AccEshop.AsyncDemo;
+using AccEshop.Dtos;
 using AccEshop.Models;
 using AccEshop.Repositories;
 using AccEshop.Services;
@@ -15,12 +17,12 @@ var productRequest = new ProductRequest
 var productRepository = new Repository<Product, string>();
 var productService = new ProductService(productRepository);
 
-ProductResponse productResponse =
+ResponseApi<ProductResponse> productResponse =
     productService.Create(productRequest);
 
 Console.WriteLine($"""
-    product Id ={productResponse.Id}
-    product name = {productResponse.Name}
+    product Id ={productResponse.Value?.Id}
+    product name = {productResponse.Value?.Name}
     """);
 
 //////////////////////////////////////////////////////
@@ -39,3 +41,21 @@ Console.WriteLine($"""
     customerDb Id ={customerDb.Id}
     customerDb name = {customerDb.Name}
     """);
+
+
+//////////////////////////////////////////////////////
+///
+IOrder order = new AccEshop.AsyncDemo.Order();
+
+Stopwatch sw = new Stopwatch();
+sw.Start();
+Task task1 = order.InspectAsync(null);
+Task task2 = order.InspectAsync(null);
+Task task3 = order.InspectAsync(null);
+Task task4 = order.InspectAsync(null);
+
+await Task.WhenAll(task1, task2, task3, task4);
+
+sw.Stop();
+Console.WriteLine($"Time Taken-->{sw.ElapsedMilliseconds}");
+
