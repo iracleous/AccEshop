@@ -1,47 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AccEshop.Dtos;
 using AccEshop.Models;
+using AccEshop.Repositories;
 
 namespace AccEshop.Services;
 
-public class OrderService
+public class OrderService : IOrderService
 {
-    private long _id;
-    private Order? _order;
+     
 
-    /// <summary>
-    /// no exceptions
-    /// </summary>
-    /// <param name="customer"></param>
-    /// <param name="product"></param>
-    /// <returns></returns>
-    public Order CreateOrder(Customer customer, Product product)
+    private readonly IRepository<Order, long> _orderRepository;
+   // private readonly IMapperOrder _orderMapper;
+
+    public OrderService(IRepository<Order, long> orderRepository)
     {
-        _id++;
-        _order = new Order()
+        _orderRepository = orderRepository;
+    }
+    public ResponseApi<OrderResponse> AddProductToOrder(ProductResponse product)
+    {
+        throw new NotImplementedException();
+    }
+
+    public ResponseApi<OrderResponse> AssignCustomerToOrder(CustomerDto customer)
+    {
+        throw new NotImplementedException();
+    }
+
+     
+
+    public ResponseApi<OrderResponse> CreateOrder()
+    {
+        Order order = _orderRepository.Create(new Order());
+        return new ResponseApi<OrderResponse>()
         {
-            Customer = customer,
-            Products = [],
-            Date = DateTime.Now,
-            Id = _id
+            Value = new OrderResponse()
+            {
+                Id = order.Id, 
+                OrderDate =   DateTime.Now,
+            }
         };
-        return _order;
     }
 
-    public Order? GetOrder() {
-        return _order;
-    }
-
-    public string GetOrderDetails()
+    public ResponseApi<OrderResponse> FinalizeOrder(long orderId)
     {
-        return $"""
-            order id {_order?.Id}
-            customer name {_order?.Customer?.Name}
-            product name {_order?.Products}
-            price {_order?.Products}
-            """;
+        throw new NotImplementedException();
     }
+
+   
+    public ResponseApi<OrderResponse> GetOrder(long orderId)
+    {
+        throw new NotImplementedException();
+    }
+
+     
 }

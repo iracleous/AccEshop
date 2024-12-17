@@ -22,5 +22,6 @@ public class Customer : IEntity<long>
     public string Fax { get; set; } = string.Empty;
     public string FaxNumber { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
-    public string FaxCode { get; set;} = string.Empty;  
+    public string FaxCode { get; set;} = string.Empty;
+    public List<Order> Orders { get; set; } = [];
  }
