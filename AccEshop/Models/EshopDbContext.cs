@@ -14,6 +14,10 @@ public class EshopDbContext:DbContext
     public DbSet<Order> Orders{ get; set; }
     public DbSet<OrderProduct> OrderProducts{ get; set; }
 
+    public EshopDbContext(DbContextOptions<EshopDbContext> options): base(options)
+    {
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // Set up your connection string and other configuration here
