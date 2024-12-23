@@ -9,7 +9,7 @@ using AccEshop.Models;
 namespace AccEshop.Repositories;
 
 
-public class Repository<T, K>: IRepository<T, K> 
+public class MemoryRepository<T, K>: IRepository<T, K> 
     where T : IEntity<K>  
 {
     private List<T> _ts = [];

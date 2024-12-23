@@ -14,7 +14,7 @@ var productRequest = new ProductRequest
       Price = 0.4m
 };
 
-var productRepository = new Repository<Product, string>();
+var productRepository = new MemoryRepository<Product, string>();
 var productService = new ProductService(productRepository);
 
 ResponseApi<ProductResponse> productResponse =
@@ -33,7 +33,7 @@ Customer customer = new Customer()
 };
 
 
-var  customerRepository = new Repository<Customer, long>();
+var  customerRepository = new MemoryRepository<Customer, long>();
 var customerService = new CustomerService(customerRepository);
 Customer customerDb = customerService.Create(customer);
 
